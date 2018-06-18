@@ -61,10 +61,11 @@ class images():
 	async def build_update(self, msgc, delta):
 
 		index = self.message_cache[msgc]["index"]
+		pos = index + delta
 
-		if index + delta >= 0 and index + delta < 25:
+		if pos >= 0 and pos < 25:
 
-			image = self.image_cache[msgc][index + delta]
+			image = self.image_cache[msgc][pos]
 
 			embed = discord.Embed(title=self.message_cache[msgc]["title"], color=0xff00ff)
 			embed.set_image(url=image)
@@ -155,7 +156,7 @@ class images():
 			image_data.append(json.loads(div.text))
 			index += 1
 
-			if index == 25:
+			if index == 26
 
 				break
 
