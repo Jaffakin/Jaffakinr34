@@ -1,9 +1,6 @@
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
-import itertools
-import uuid
 import json
-import os
 
 from discord.ext import commands
 import discord
@@ -25,7 +22,7 @@ class images():
 
 			await self.functions[alias](message)
 
-	async def process_reaction(self, reaction, user):
+	async def react(self, reaction, user):
 
 		if user.id == 458100163429531648:
 
@@ -34,17 +31,19 @@ class images():
 		mid = reaction.message.id
 		msgc = reaction.message.channel.id
 
-		if self.message_cache[msgc]["mid"] == mid:
+		if msgc in self.message_cache:
 
-			if str(reaction.emoji) == u"\u27A1":
+			if self.message_cache[msgc]["mid"] == mid:
 
-				delta = 1
-				await self.build_update(msgc, delta)
+				if str(reaction.emoji) == u"\u27A1":
 
-			elif str(reaction.emoji) == u"\u2B05":
+					delta = 1
+					await self.build_update(msgc, delta)
 
-				delta = -1
-				await self.build_update(msgc, delta)
+				elif str(reaction.emoji) == u"\u2B05":
+
+					delta = -1
+					await self.build_update(msgc, delta)
 
 	async def google(self, message):
 
@@ -156,7 +155,7 @@ class images():
 			image_data.append(json.loads(div.text))
 			index += 1
 
-			if index == 26
+			if index == 26:
 
 				break
 
